@@ -24,7 +24,6 @@ class HotelsPresenter {
             @Override
             public void onError(Throwable t) {
                 hotelsView.showError(t.getMessage());
-
             }
         });
     }

@@ -11,8 +11,8 @@ class HotelsModel {
         datiFinti.add(new Hotel("Nome Hotel 1"));
         datiFinti.add(new Hotel("Nome Hotel DUE"));
         datiFinti.add(new Hotel("Nome Hotel 33 E TRE"));
-//        boolean tuttoOK = true;
-        boolean tuttoOK = false;
+        boolean tuttoOK = true;
+//        boolean tuttoOK = false;
 
         if (tuttoOK) {
             onFinishedListener.onSuccess(datiFinti);

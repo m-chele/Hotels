@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements HotelsView {
 
     private HotelsPresenter hotelPresenter;
+    private RecyclerView hotelsListView;
+    private List<Hotel> hotels;
+    private HotelsAdapter hotelsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,10 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        hotelsListView = findViewById(R.id.hotels_list);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        hotelsListView.setLayoutManager(layoutManager);
 
         hotelPresenter = new HotelsPresenter(this);
         hotelPresenter.loadData();
@@ -84,10 +93,12 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
     }
 
     @Override
-    public void updateWith(List<Hotel> hotelsList) {
-        // TODO : implementare
-        Snackbar.make(findViewById(R.id.fab), "Aggiornato bla bla", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+    public void updateWith(final List<Hotel> hotelsList) {
 
+        hotels = hotelsList;
+        hotelsAdapter = new HotelsAdapter(hotels);
+        hotelsListView.setAdapter(hotelsAdapter);
+
+        hotelsAdapter.notifyDataSetChanged();
     }
 }
