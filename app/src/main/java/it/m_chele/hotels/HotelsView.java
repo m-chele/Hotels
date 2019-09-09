@@ -5,7 +5,7 @@ import java.util.List;
 interface HotelsView {
     void showLoading();
 
-    void showError();
+    void showError(String message);
 
     void updateWith(List<Hotel> hotelsList);
 }

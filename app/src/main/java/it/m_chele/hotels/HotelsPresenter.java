@@ -23,7 +23,7 @@ class HotelsPresenter {
 
             @Override
             public void onError(Throwable t) {
-                hotelsView.showError();
+                hotelsView.showError(t.getMessage());
 
             }
         });

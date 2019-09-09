@@ -77,11 +77,10 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
     }
 
     @Override
-    public void showError() {
-        // TODO : implementare
-        Snackbar.make(findViewById(R.id.fab), "Errore bla bla", Snackbar.LENGTH_LONG)
+    public void showError(String message) {
+        // TODO: UI/UX
+        Snackbar.make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
-
     }
 
     @Override
