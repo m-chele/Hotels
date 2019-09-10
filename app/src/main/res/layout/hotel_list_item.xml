@@ -8,9 +8,9 @@
         android:id="@+id/hotel_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_margin="8dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
         app:cardBackgroundColor="@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,8 +25,8 @@
             <ImageView
                 android:id="@+id/hotel_images"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
                 android:src="@drawable/fake_hotel_image" />
 
             <LinearLayout
@@ -39,7 +39,7 @@
                     android:id="@+id/hotel_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:lines="2"
                     android:text="Nome Hotel"
                     android:textColor="#000"
                     android:textSize="18sp" />
@@ -68,40 +68,41 @@
                     android:textColor="#555" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+            <!--                    TODO: move to detail activity-->
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:padding="16dp">-->
 
-                <TextView
-                    android:id="@+id/hotel_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="phone: +39 24322342"
-                    android:textColor="#555" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/hotel_phone"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="phone: +39 24322342"-->
+            <!--                    android:textColor="#555" />-->
 
-                <TextView
-                    android:id="@+id/hotel_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="mail:_park_plaza@gmail.com"
-                    android:textColor="#555" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/hotel_email"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="mail:_park_plaza@gmail.com"-->
+            <!--                    android:textColor="#555" />-->
 
-                <TextView
-                    android:id="@+id/hotel_checkin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="check-in 14:00 to 20:00"
-                    android:textColor="#555" />
+            <!--                <TextView-->
+            <!--                    android:id="@+id/hotel_checkin"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="check-in 14:00 to 20:00"-->
+            <!--                    android:textColor="#555" />-->
 
-                <TextView
-                    android:id="@+id/hotel_checkout"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:text="check-out 07:00 to 10:00"
-                    android:textColor="#555" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/hotel_checkout"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="36dp"-->
+            <!--                    android:text="check-out 07:00 to 10:00"-->
+            <!--                    android:textColor="#555" />-->
+            <!--            </LinearLayout>-->
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

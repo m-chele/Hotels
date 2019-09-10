@@ -8,15 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 import java.util.Locale;
 
 public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewHolder> {
+    private HotelListItemClickListener hotelListItemClickListener;
     private List<Hotel> hotels;
 
-    public HotelsAdapter(List<Hotel> hotels) {
-
+    public HotelsAdapter(HotelListItemClickListener hotelListItemClickListener, List<Hotel> hotels) {
         this.hotels = hotels;
+        this.hotelListItemClickListener = hotelListItemClickListener;
     }
 
     @NonNull
@@ -28,17 +31,28 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotelsAdapter.HotelViewHolder hotelViewHolder, int i) {
+    public void onBindViewHolder(@NonNull HotelsAdapter.HotelViewHolder hotelViewHolder, final int i) {
         Hotel hotel = hotels.get(i);
-//        hotelViewHolder.images.caricaUrls(hotel.images);
+        Picasso.get()
+                .load(hotel.images.get(0).toString())
+                .into(hotelViewHolder.images);
         hotelViewHolder.name.setText(hotel.name);
         hotelViewHolder.stars.setText(String.format("%d stelle", hotel.stars));
         hotelViewHolder.address.setText(String.format("Indirizzo %s", hotel.address));
         hotelViewHolder.rating.setText(String.format(Locale.ITALY, "Valutazione utenti %.1f", 9.8));
-        hotelViewHolder.phone.setText(String.format("Tel: %s", hotel.phone));
-        hotelViewHolder.email.setText(String.format("Email: %s", hotel.email));
-        hotelViewHolder.checkin.setText(String.format("Check-in: %s", hotel.checkin));
-        hotelViewHolder.checkout.setText(String.format("Check-in: %s", hotel.checkout));
+
+        hotelViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hotelListItemClickListener.onHotelItemClick(i);
+            }
+        });
+
+        // TODO: move to detail activity
+//        hotelViewHolder.phone.setText(String.format("Tel: %s", hotel.phone));
+//        hotelViewHolder.email.setText(String.format("Email: %s", hotel.email));
+//        hotelViewHolder.checkin.setText(String.format("Check-in: %s", hotel.checkin));
+//        hotelViewHolder.checkout.setText(String.format("Check-in: %s", hotel.checkout));
     }
 
     @Override
@@ -53,10 +67,11 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
         public TextView stars;
         public TextView address;
         public TextView rating;
-        public TextView phone;
-        public TextView email;
-        public TextView checkin;
-        public TextView checkout;
+        // TODO: move to detail activity
+//        public TextView phone;
+//        public TextView email;
+//        public TextView checkin;
+//        public TextView checkout;
 
         public HotelViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,10 +81,11 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
             stars = itemView.findViewById(R.id.hotel_stars);
             address = itemView.findViewById(R.id.hotel_address);
             rating = itemView.findViewById(R.id.hotel_rating);
-            phone = itemView.findViewById(R.id.hotel_phone);
-            email = itemView.findViewById(R.id.hotel_email);
-            checkin = itemView.findViewById(R.id.hotel_checkin);
-            checkout = itemView.findViewById(R.id.hotel_checkout);
+            // TODO: move to detail activity
+//            phone = itemView.findViewById(R.id.hotel_phone);
+//            email = itemView.findViewById(R.id.hotel_email);
+//            checkin = itemView.findViewById(R.id.hotel_checkin);
+//            checkout = itemView.findViewById(R.id.hotel_checkout);
         }
     }
 }

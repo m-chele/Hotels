@@ -4,16 +4,17 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements HotelsView {
+public class MainActivity extends AppCompatActivity implements HotelsView, HotelListItemClickListener {
 
     private HotelsPresenter hotelPresenter;
     private RecyclerView hotelsListView;
@@ -28,8 +29,7 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
         setSupportActionBar(toolbar);
 
         hotelsListView = findViewById(R.id.hotels_list);
-//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         hotelsListView.setLayoutManager(layoutManager);
         hotelsListView.setHasFixedSize(true);
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
         hotelPresenter.loadData();
 
 
-        // TODO: pensare a UI/UX
+        // TODO: pensare a UI/UX: rimuovere o usare per filtro
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
 
     @Override
     public void showLoading() {
-        // TODO : implementare
+        // TODO : UI/UX
         Snackbar.make(findViewById(R.id.fab), "Iniziato caricamento", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
@@ -98,9 +98,18 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
     public void updateWith(final List<Hotel> hotelsList) {
 
         hotels = hotelsList;
-        hotelsAdapter = new HotelsAdapter(hotels);
+        hotelsAdapter = new HotelsAdapter(this, hotels);
         hotelsListView.setAdapter(hotelsAdapter);
 
         hotelsAdapter.notifyDataSetChanged();
+
+        // TODO: rimuovere
+        Snackbar.make(findViewById(R.id.fab), "Cricamento completo", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    @Override
+    public void onHotelItemClick(int position) {
+        Log.d("!!!", "onHotelItemClick: HO CLICKATO " + position);
     }
 }
