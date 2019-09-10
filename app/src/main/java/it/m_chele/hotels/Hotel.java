@@ -1,9 +1,12 @@
 package it.m_chele.hotels;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class Hotel {
+class Hotel implements Parcelable {
 
     // TODO: dummy data, prendere da network
 //    @SerializedName("name")
@@ -31,4 +34,44 @@ class Hotel {
         this.phone = "+33 333 777666 ";
         this.rating = 9.8;
     }
+
+    protected Hotel(Parcel in) {
+        name = in.readString();
+        stars = in.readInt();
+        address = in.readString();
+        checkin = in.readString();
+        checkout = in.readString();
+        email = in.readString();
+        phone = in.readString();
+        rating = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeInt(stars);
+        dest.writeString(address);
+        dest.writeString(checkin);
+        dest.writeString(checkout);
+        dest.writeString(email);
+        dest.writeString(phone);
+        dest.writeDouble(rating);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Hotel> CREATOR = new Creator<Hotel>() {
+        @Override
+        public Hotel createFromParcel(Parcel in) {
+            return new Hotel(in);
+        }
+
+        @Override
+        public Hotel[] newArray(int size) {
+            return new Hotel[size];
+        }
+    };
 }

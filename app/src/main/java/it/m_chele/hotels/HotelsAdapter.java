@@ -47,12 +47,6 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
                 hotelListItemClickListener.onHotelItemClick(position);
             }
         });
-
-        // TODO: move to detail activity
-//        hotelViewHolder.phone.setText(String.format("Tel: %s", hotel.phone));
-//        hotelViewHolder.email.setText(String.format("Email: %s", hotel.email));
-//        hotelViewHolder.checkin.setText(String.format("Check-in: %s", hotel.checkin));
-//        hotelViewHolder.checkout.setText(String.format("Check-in: %s", hotel.checkout));
     }
 
     @Override
@@ -67,11 +61,6 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
         public TextView stars;
         public TextView address;
         public TextView rating;
-        // TODO: move to detail activity
-//        public TextView phone;
-//        public TextView email;
-//        public TextView checkin;
-//        public TextView checkout;
 
         public HotelViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,11 +70,6 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
             stars = itemView.findViewById(R.id.hotel_stars);
             address = itemView.findViewById(R.id.hotel_address);
             rating = itemView.findViewById(R.id.hotel_rating);
-            // TODO: move to detail activity
-//            phone = itemView.findViewById(R.id.hotel_phone);
-//            email = itemView.findViewById(R.id.hotel_email);
-//            checkin = itemView.findViewById(R.id.hotel_checkin);
-//            checkout = itemView.findViewById(R.id.hotel_checkout);
         }
     }
 }
