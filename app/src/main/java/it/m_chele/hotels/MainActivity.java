@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
     public void updateWith(final List<Hotel> hotelsList) {
 
         hotels = hotelsList;
-        hotelsAdapter = new HotelsAdapter(this, hotels);
+        hotelsAdapter = new HotelsAdapter(hotels, this);
         hotelsListView.setAdapter(hotelsAdapter);
 
         hotelsAdapter.notifyDataSetChanged();

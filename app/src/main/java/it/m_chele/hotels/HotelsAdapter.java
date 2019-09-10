@@ -17,7 +17,7 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
     private HotelListItemClickListener hotelListItemClickListener;
     private List<Hotel> hotels;
 
-    public HotelsAdapter(HotelListItemClickListener hotelListItemClickListener, List<Hotel> hotels) {
+    public HotelsAdapter(List<Hotel> hotels, HotelListItemClickListener hotelListItemClickListener) {
         this.hotels = hotels;
         this.hotelListItemClickListener = hotelListItemClickListener;
     }
@@ -31,8 +31,8 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotelsAdapter.HotelViewHolder hotelViewHolder, final int i) {
-        Hotel hotel = hotels.get(i);
+    public void onBindViewHolder(@NonNull HotelsAdapter.HotelViewHolder hotelViewHolder, final int position) {
+        Hotel hotel = hotels.get(position);
         Picasso.get()
                 .load(hotel.images.get(0).toString())
                 .into(hotelViewHolder.images);
@@ -44,7 +44,7 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
         hotelViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hotelListItemClickListener.onHotelItemClick(i);
+                hotelListItemClickListener.onHotelItemClick(position);
             }
         });
 
