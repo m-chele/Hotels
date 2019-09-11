@@ -12,7 +12,6 @@ class HotelsModel {
 
     public void get(final OnFinishedListener onFinishedListener) {
 
-
         ApiInterface apiInterface = getClient().create(ApiInterface.class);
         apiInterface.getHotels().enqueue(new Callback<Hotels>() {
             @Override

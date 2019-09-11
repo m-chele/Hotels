@@ -37,7 +37,7 @@
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     app:dot_height="8dp"
-                    app:dot_tint="#FFC107"
+                    app:dot_tint="@color/colorAccent"
                     app:dot_width="8dp"
                     app:layout_constraintBottom_toBottomOf="@id/images_view_pager"
                     app:layout_constraintEnd_toEndOf="@id/images_view_pager"
