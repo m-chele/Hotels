@@ -2,7 +2,7 @@ package it.m_chele.hotels;
 
 import it.m_chele.hotels.model.Hotels;
 
-class HotelsPresenter {
+class HotelsPresenter implements HotelsModel.OnFinishedListener {
     private HotelsView hotelsView;
     private HotelsModel hotelsModel;
 
@@ -12,22 +12,27 @@ class HotelsPresenter {
     }
 
     public void loadData() {
-        hotelsView.showLoading();
-
-        hotelsModel.get(new HotelsModel.OnFinishedListener() {
-            @Override
-            public void onSuccess(Hotels hotelsList) {
-                hotelsView.updateWith(hotelsList);
-            }
-
-            @Override
-            public void onError(Throwable t) {
-                hotelsView.showError(t.getMessage());
-            }
-        });
+        if (null != hotelsView) {
+            hotelsView.showLoading();
+        }
+        hotelsModel.get(this);
     }
 
     public void onDestroy() {
         hotelsView = null;
+    }
+
+    @Override
+    public void onSuccess(Hotels hotelsList) {
+        if (null != hotelsView) {
+            hotelsView.updateWith(hotelsList);
+        }
+    }
+
+    @Override
+    public void onError(Throwable t) {
+        if (null != hotelsView) {
+            hotelsView.showError(t.getMessage());
+        }
     }
 }
