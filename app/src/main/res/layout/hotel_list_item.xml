@@ -8,7 +8,7 @@
         android:id="@+id/hotel_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         app:cardBackgroundColor="@color/cardview_light_background"
@@ -25,15 +25,16 @@
             <ImageView
                 android:id="@+id/hotel_images"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerCrop"
                 android:src="@drawable/fake_hotel_image" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingHorizontal="4dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/hotel_name"
@@ -57,6 +58,7 @@
                     android:id="@+id/hotel_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lines="2"
                     android:text="6 Hercules Road, London"
                     android:textColor="#555" />
 
@@ -64,7 +66,7 @@
                     android:id="@+id/hotel_rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="valutazione utenti 9.8"
+                    android:text="valutazione 9.8"
                     android:textColor="#555" />
             </LinearLayout>
 

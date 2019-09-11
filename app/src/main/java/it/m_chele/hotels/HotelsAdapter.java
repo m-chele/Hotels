@@ -38,6 +38,7 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
         HotelsItem hotel = hotelsList.get(position);
         Picasso.get()
                 .load(hotel.getImages().get(0))
+                .error(R.drawable.image_problem)
                 .into(hotelViewHolder.images);
         hotelViewHolder.name.setText(hotel.getName());
         hotelViewHolder.stars.setText(String.format("%d stelle", hotel.getStars()));
