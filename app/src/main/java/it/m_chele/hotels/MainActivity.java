@@ -42,41 +42,14 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
         hotelPresenter.loadData();
 
 
-        // TODO: pensare a UI/UX: rimuovere o usare per filtro
+        // TODO: pensare a UI/UX: usare per filtro e aggiungere pull to refresh
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hotelPresenter.loadData();  // FOR DEBUG ONLY
+                hotelPresenter.loadData();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
     }
 
     @Override
@@ -87,13 +60,12 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
 
     @Override
     public void showLoading() {
-        // TODO : UI/UX
+        // TODO : UI/UX e.g progressbar
         showSnackbarWithMessage("Iniziato caricamento");
     }
 
     @Override
     public void showError(String message) {
-        // TODO: UI/UX
         showSnackbarWithMessage("Errore di caricamento, riprova tra poco");
     }
 
