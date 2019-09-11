@@ -27,6 +27,7 @@ class ImagesAdapter extends PagerAdapter {
         ImageView imageView = new ImageView(context);
         Picasso.get()
                 .load(imagesUrl.get(position))
+                .error(R.drawable.image_problem)
                 .into(imageView);
         container.addView(imageView);
 

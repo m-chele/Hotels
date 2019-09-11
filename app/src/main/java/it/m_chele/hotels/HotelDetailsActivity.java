@@ -31,13 +31,25 @@ public class HotelDetailsActivity extends AppCompatActivity {
         DotsIndicator dotsIndicator = findViewById(R.id.dots);
         dotsIndicator.attachViewPager(hotelImagesViewPager);
 
+        TextView name = findViewById(R.id.hotel_name);
+        TextView stars = findViewById(R.id.hotel_stars);
         TextView address = findViewById(R.id.hotel_address);
+        TextView rating = findViewById(R.id.hotel_rating);
         TextView phone = findViewById(R.id.hotel_phone);
         TextView email = findViewById(R.id.hotel_email);
         TextView checkin = findViewById(R.id.hotel_checkin);
         TextView checkout = findViewById(R.id.hotel_checkout);
 
+        name.setText(
+                String.format("%s",
+                        hotel.getName()));
+        stars.setText(
+                String.format("%s stelle",
+                        hotel.getStars()));
         address.setText(
+                String.format("Valutazione %s",
+                        hotel.getUserRating()));
+        rating.setText(
                 String.format("%s",
                         hotel.getLocation().getAddress()));
         phone.setText(

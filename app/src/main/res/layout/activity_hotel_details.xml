@@ -80,7 +80,7 @@
                     android:id="@+id/hotel_rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="valutazione utenti 9.8"
+                    android:text="valutazione 9.8"
                     android:textColor="#555" />
             </LinearLayout>
 
