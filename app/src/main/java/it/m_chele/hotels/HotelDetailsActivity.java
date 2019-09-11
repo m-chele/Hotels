@@ -50,8 +50,8 @@ public class HotelDetailsActivity extends AppCompatActivity {
                 String.format("Valutazione %s",
                         hotel.getUserRating()));
         rating.setText(
-                String.format("%s",
-                        hotel.getLocation().getAddress()));
+                String.format("%s, %s",
+                        hotel.getLocation().getAddress(), hotel.getLocation().getCity()));
         phone.setText(
                 String.format("Tel: %s",
                         hotel.getContact().getPhoneNumber()));

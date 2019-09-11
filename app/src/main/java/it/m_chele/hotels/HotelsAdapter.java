@@ -42,7 +42,7 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
                 .into(hotelViewHolder.images);
         hotelViewHolder.name.setText(hotel.getName());
         hotelViewHolder.stars.setText(String.format("%d stelle", hotel.getStars()));
-        hotelViewHolder.address.setText(String.format("%s", hotel.getLocation().getAddress()));
+        hotelViewHolder.address.setText(String.format("%s, %s", hotel.getLocation().getAddress(), hotel.getLocation().getCity()));
         hotelViewHolder.rating.setText(String.format(Locale.ITALY, "Valutazione %.1f", hotel.getUserRating()));
 
         hotelViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
