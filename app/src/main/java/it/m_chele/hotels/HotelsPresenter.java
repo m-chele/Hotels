@@ -1,6 +1,6 @@
 package it.m_chele.hotels;
 
-import java.util.List;
+import it.m_chele.hotels.model.Hotels;
 
 class HotelsPresenter {
     private HotelsView hotelsView;
@@ -12,12 +12,11 @@ class HotelsPresenter {
     }
 
     public void loadData() {
-        // show loading
         hotelsView.showLoading();
 
         hotelsModel.get(new HotelsModel.OnFinishedListener() {
             @Override
-            public void onSuccess(List<Hotel> hotelsList) {
+            public void onSuccess(Hotels hotelsList) {
                 hotelsView.updateWith(hotelsList);
             }
 

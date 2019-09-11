@@ -13,12 +13,15 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Locale;
 
+import it.m_chele.hotels.model.Hotels;
+import it.m_chele.hotels.model.HotelsItem;
+
 public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewHolder> {
     private HotelListItemClickListener hotelListItemClickListener;
-    private List<Hotel> hotels;
+    private List<HotelsItem> hotelsList;
 
-    public HotelsAdapter(List<Hotel> hotels, HotelListItemClickListener hotelListItemClickListener) {
-        this.hotels = hotels;
+    public HotelsAdapter(Hotels hotels, HotelListItemClickListener hotelListItemClickListener) {
+        this.hotelsList = hotels.getHotels();
         this.hotelListItemClickListener = hotelListItemClickListener;
     }
 
@@ -32,14 +35,14 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
 
     @Override
     public void onBindViewHolder(@NonNull HotelsAdapter.HotelViewHolder hotelViewHolder, final int position) {
-        Hotel hotel = hotels.get(position);
+        HotelsItem hotel = hotelsList.get(position);
         Picasso.get()
-                .load(hotel.images.get(0).toString())
+                .load(hotel.getImages().get(0))
                 .into(hotelViewHolder.images);
-        hotelViewHolder.name.setText(hotel.name);
-        hotelViewHolder.stars.setText(String.format("%d stelle", hotel.stars));
-        hotelViewHolder.address.setText(String.format("Indirizzo %s", hotel.address));
-        hotelViewHolder.rating.setText(String.format(Locale.ITALY, "Valutazione utenti %.1f", 9.8));
+        hotelViewHolder.name.setText(hotel.getName());
+        hotelViewHolder.stars.setText(String.format("%d stelle", hotel.getStars()));
+        hotelViewHolder.address.setText(String.format("%s", hotel.getLocation().getAddress()));
+        hotelViewHolder.rating.setText(String.format(Locale.ITALY, "Valutazione %.1f", hotel.getUserRating()));
 
         hotelViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +54,7 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
 
     @Override
     public int getItemCount() {
-        return hotels.size();
+        return hotelsList.size();
     }
 
     public class HotelViewHolder extends RecyclerView.ViewHolder {

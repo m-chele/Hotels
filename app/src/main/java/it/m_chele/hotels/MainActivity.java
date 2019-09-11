@@ -14,11 +14,14 @@ import android.view.View;
 
 import java.util.List;
 
+import it.m_chele.hotels.model.Hotels;
+import it.m_chele.hotels.model.HotelsItem;
+
 public class MainActivity extends AppCompatActivity implements HotelsView, HotelListItemClickListener {
 
     private HotelsPresenter hotelPresenter;
     private RecyclerView hotelsListView;
-    private List<Hotel> hotels;
+    private List<HotelsItem> hotelsList;
     private HotelsAdapter hotelsAdapter;
 
     @Override
@@ -95,16 +98,16 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
     }
 
     @Override
-    public void updateWith(final List<Hotel> hotelsList) {
+    public void updateWith(final Hotels hotels) {
 
-        hotels = hotelsList;
+        this.hotelsList = hotels.getHotels();
         hotelsAdapter = new HotelsAdapter(hotels, this);
         hotelsListView.setAdapter(hotelsAdapter);
 
         hotelsAdapter.notifyDataSetChanged();
 
         // TODO: rimuovere
-        Snackbar.make(findViewById(R.id.fab), "Cricamento completo", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(R.id.fab), "Caricamento completo", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
             return;
         }
         Intent detailIntent = new Intent(this, HotelDetailsActivity.class);
-        detailIntent.putExtra(HotelConstants.KEY_HOTEL, hotels.get(position));
+        detailIntent.putExtra(HotelConstants.KEY_HOTEL, hotelsList.get(position));
         startActivity(detailIntent);
     }
 }

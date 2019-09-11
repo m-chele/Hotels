@@ -1,35 +1,37 @@
 package it.m_chele.hotels;
 
-import java.util.ArrayList;
-import java.util.List;
+import it.m_chele.hotels.model.Hotels;
+import it.m_chele.hotels.network.ApiInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static it.m_chele.hotels.network.ApiClient.getClient;
 
 class HotelsModel {
 
-    public void get(OnFinishedListener onFinishedListener) {
-        // TODO: fare chiamata di rete
-        List datiFinti = new ArrayList();
-        datiFinti.add(new Hotel("Park Plaza London Waterloo"));
-        datiFinti.add(new Hotel("Belgrave House Hotel"));
-        datiFinti.add(new Hotel("Absolute Pleasure Yacht"));
-        datiFinti.add(new Hotel("una riga"));
-        datiFinti.add(new Hotel("The Z Hotel Piccadilly"));
-        datiFinti.add(new Hotel("Holiday Inn Express"));
-        datiFinti.add(new Hotel("Crowne Plaza LONDON - KINGS CROSS"));
-        boolean tuttoOK = true;
-//        boolean tuttoOK = false;
+    public void get(final OnFinishedListener onFinishedListener) {
 
-        if (tuttoOK) {
-            onFinishedListener.onSuccess(datiFinti);
-        } else {
-            onFinishedListener.onError(new Exception("Errore di rete FINTO!"));
-        }
+
+        ApiInterface apiInterface = getClient().create(ApiInterface.class);
+        apiInterface.getHotels().enqueue(new Callback<Hotels>() {
+            @Override
+            public void onResponse(Call<Hotels> call, Response<Hotels> response) {
+                onFinishedListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Hotels> call, Throwable t) {
+                onFinishedListener.onError(t);
+            }
+        });
     }
 
 
     // TODO: rxJava
     interface OnFinishedListener {
 
-        void onSuccess(List<Hotel> hotelsList);
+        void onSuccess(Hotels hotelsList);
 
         void onError(Throwable t);
     }

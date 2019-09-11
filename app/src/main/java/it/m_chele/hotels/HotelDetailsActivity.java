@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import it.m_chele.hotels.model.HotelsItem;
+
 public class HotelDetailsActivity extends AppCompatActivity {
 
-    private Hotel hotel;
+    private HotelsItem hotel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +22,29 @@ public class HotelDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         hotel = intent.getParcelableExtra(HotelConstants.KEY_HOTEL);
 
+        TextView address = findViewById(R.id.hotel_address);
         TextView phone = findViewById(R.id.hotel_phone);
         TextView email = findViewById(R.id.hotel_email);
         TextView checkin = findViewById(R.id.hotel_checkin);
         TextView checkout = findViewById(R.id.hotel_checkout);
 
-        phone.setText(String.format("Tel: %s", hotel.phone));
-        email.setText(String.format("Email: %s", hotel.email));
-        checkin.setText(String.format("Check-in: %s", hotel.checkin));
-        checkout.setText(String.format("Check-in: %s", hotel.checkout));
+        address.setText(
+                String.format("%s",
+                        hotel.getLocation().getAddress()));
+        phone.setText(
+                String.format("Tel: %s",
+                        hotel.getContact().getPhoneNumber()));
+        email.setText(
+                String.format("Email: %s",
+                        hotel.getContact().getEmail()));
+        checkin.setText(
+                String.format("Check-in: %s to %s",
+                        hotel.getCheckIn().getFrom()
+                        , hotel.getCheckIn().getTo()));
+        checkout.setText(
+                String.format("Check-in: %s to %s",
+                        hotel.getCheckOut().getFrom(),
+                        hotel.getCheckOut().getTo()));
     }
 
 

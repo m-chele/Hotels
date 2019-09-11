@@ -1,11 +1,11 @@
 package it.m_chele.hotels;
 
-import java.util.List;
+import it.m_chele.hotels.model.Hotels;
 
 interface HotelsView {
     void showLoading();
 
     void showError(String message);
 
-    void updateWith(List<Hotel> hotelsList);
+    void updateWith(Hotels hotelsList);
 }
