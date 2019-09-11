@@ -2,6 +2,7 @@ package it.m_chele.hotels;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -21,6 +22,9 @@ public class HotelDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         hotel = intent.getParcelableExtra(HotelConstants.KEY_HOTEL);
+
+        ViewPager hotelImagesViewPager = findViewById(R.id.images_view_pager);
+        hotelImagesViewPager.setAdapter(new ImagesAdapter(this, hotel.getImages()));
 
         TextView address = findViewById(R.id.hotel_address);
         TextView phone = findViewById(R.id.hotel_phone);
