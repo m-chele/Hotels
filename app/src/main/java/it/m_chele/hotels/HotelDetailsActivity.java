@@ -2,9 +2,12 @@ package it.m_chele.hotels;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
+import com.afollestad.viewpagerdots.DotsIndicator;
 
 import it.m_chele.hotels.model.HotelsItem;
 
@@ -25,6 +28,8 @@ public class HotelDetailsActivity extends AppCompatActivity {
 
         ViewPager hotelImagesViewPager = findViewById(R.id.images_view_pager);
         hotelImagesViewPager.setAdapter(new ImagesAdapter(this, hotel.getImages()));
+        DotsIndicator dotsIndicator = findViewById(R.id.dots);
+        dotsIndicator.attachViewPager(hotelImagesViewPager);
 
         TextView address = findViewById(R.id.hotel_address);
         TextView phone = findViewById(R.id.hotel_phone);
