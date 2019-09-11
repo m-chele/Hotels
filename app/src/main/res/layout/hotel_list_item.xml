@@ -37,6 +37,22 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/hotel_stars"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4 stelle"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/hotel_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="valutazione 9.8"
+                    android:textColor="#555"
+                    android:textSize="16sp" />
+
+                <TextView
                     android:id="@+id/hotel_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,28 +62,15 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/hotel_stars"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="4 stelle"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
-
-                <TextView
                     android:id="@+id/hotel_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:lines="2"
                     android:text="6 Hercules Road, London"
-                    android:textColor="#555" />
+                    android:textColor="#555"
+                    android:textSize="14sp"/>
 
-                <TextView
-                    android:id="@+id/hotel_rating"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="valutazione 9.8"
-                    android:textColor="#555" />
             </LinearLayout>
 
         </LinearLayout>
