@@ -2,15 +2,17 @@ package it.m_chele.hotels;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -86,15 +88,13 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
     @Override
     public void showLoading() {
         // TODO : UI/UX
-        Snackbar.make(findViewById(R.id.fab), "Iniziato caricamento", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        showSnackbarWithMessage("Iniziato caricamento");
     }
 
     @Override
     public void showError(String message) {
         // TODO: UI/UX
-        Snackbar.make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        showSnackbarWithMessage("Errore di caricamento, riprova tra poco");
     }
 
     @Override
@@ -106,9 +106,12 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
 
         hotelsAdapter.notifyDataSetChanged();
 
-        // TODO: rimuovere
-        Snackbar.make(findViewById(R.id.fab), "Caricamento completo", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        showSnackbarWithMessage("Caricamento completo");
+    }
+
+    private void showSnackbarWithMessage(String message) {
+        Snackbar.make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG)
+                .show();
     }
 
     @Override
