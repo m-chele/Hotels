@@ -1,20 +1,21 @@
     package it.m_chele.hotels;
 
-import android.content.Intent;
-import android.os.Bundle;
+    import android.content.Intent;
+    import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+    import androidx.annotation.VisibleForTesting;
+    import androidx.appcompat.app.AppCompatActivity;
+    import androidx.appcompat.widget.Toolbar;
+    import androidx.recyclerview.widget.GridLayoutManager;
+    import androidx.recyclerview.widget.RecyclerView;
+    import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+    import com.google.android.material.floatingactionbutton.FloatingActionButton;
+    import com.google.android.material.snackbar.Snackbar;
 
 public class HotelsListActivity extends AppCompatActivity implements HotelsView {
 
-    private HotelsPresenter hotelPresenter;
+    private HotelsPresenter hotelsPresenter;
     private RecyclerView hotelsListView;
     private SwipeRefreshLayout refreshLayout;
     private FloatingActionButton fab;
@@ -26,8 +27,8 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
 
         configureUI();
 
-        hotelPresenter = new HotelsPresenterImpl(this, new HotelsModelImpl());
-        hotelPresenter.loadData();
+        hotelsPresenter = new HotelsPresenterImpl(this, new HotelsModelImpl());
+        hotelsPresenter.loadData();
     }
 
     private void configureUI() {
@@ -35,7 +36,7 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
         setSupportActionBar(toolbar);
 
         refreshLayout = findViewById(R.id.refresh_layout);
-        refreshLayout.setOnRefreshListener(() -> hotelPresenter.loadData());
+        refreshLayout.setOnRefreshListener(() -> hotelsPresenter.loadData());
 
         hotelsListView = findViewById(R.id.hotels_list);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
@@ -43,13 +44,13 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
         hotelsListView.setHasFixedSize(true);
 
         fab = findViewById(R.id.fab);
-        fab.setOnClickListener(v -> hotelPresenter.onClickOnToggleStarsSorting());
+        fab.setOnClickListener(v -> hotelsPresenter.onClickOnToggleStarsSorting());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        hotelPresenter.onDestroy();
+        hotelsPresenter.onDestroy();
     }
 
     @Override
@@ -72,7 +73,7 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
 
     @Override
     public void refreshData() {
-        HotelsAdapter hotelsAdapter = new HotelsAdapter(hotelPresenter);
+        HotelsAdapter hotelsAdapter = new HotelsAdapter(hotelsPresenter);
         hotelsListView.setAdapter(hotelsAdapter);
 
         hotelsAdapter.notifyDataSetChanged();
@@ -93,7 +94,12 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
             return;
         }
         Intent detailIntent = new Intent(this, HotelDetailsActivity.class);
-        detailIntent.putExtra(HotelConstants.KEY_HOTEL, hotelPresenter.hotelAt(position));
+        detailIntent.putExtra(HotelConstants.KEY_HOTEL, hotelsPresenter.hotelAt(position));
         startActivity(detailIntent);
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    public void setPresenter(HotelsPresenter hotelsPresenter) {
+        this.hotelsPresenter = hotelsPresenter;
     }
 }
