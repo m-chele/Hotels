@@ -2,14 +2,12 @@ package it.m_chele.hotels;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
     private RecyclerView hotelsListView;
     private List<HotelsItem> hotelsList;
     private HotelsAdapter hotelsAdapter;
+    private SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        refreshLayout = findViewById(R.id.refresh_layout);
+        refreshLayout.setOnRefreshListener(() -> hotelPresenter.loadData());
 
         hotelsListView = findViewById(R.id.hotels_list);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
@@ -41,15 +43,9 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
         hotelPresenter = new HotelsPresenter(this);
         hotelPresenter.loadData();
 
-
         // TODO: pensare a UI/UX: usare per filtro e aggiungere pull to refresh
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hotelPresenter.loadData();
-            }
-        });
+        fab.setOnClickListener(view -> hotelPresenter.loadData());
     }
 
     @Override
@@ -61,12 +57,14 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
     @Override
     public void showLoading() {
         // TODO : UI/UX e.g progressbar
-        showSnackbarWithMessage("Iniziato caricamento");
+        refreshLayout.setRefreshing(true);
+        showSnackbarWithMessage("Caricamento in corso...");
     }
 
     @Override
     public void showError(String message) {
-        showSnackbarWithMessage("Errore di caricamento, riprova tra poco");
+        refreshLayout.setRefreshing(false);
+        showSnackbarWithMessage("Errore di caricamento, riprova tra poco!");
     }
 
     @Override
@@ -78,7 +76,8 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
 
         hotelsAdapter.notifyDataSetChanged();
 
-        showSnackbarWithMessage("Caricamento completo");
+        refreshLayout.setRefreshing(false);
+        showSnackbarWithMessage("Caricamento completo!");
     }
 
     private void showSnackbarWithMessage(String message) {
