@@ -59,8 +59,9 @@ class HotelsPresenter {
         hotelsView.onHotelItemClick(position);
     }
 
-    public void sortByStars() {
-        Collections.sort(hotels, (o1, o2) -> o1.getStars() - o2.getStars());
+    public void sortByStars(boolean ascending) {
+        int inversionCoefficient = ascending ? 1 : -1;
+        Collections.sort(hotels, (o1, o2) -> inversionCoefficient * (o1.getStars() - o2.getStars()));
         hotelsView.refreshData();
     }
 }
