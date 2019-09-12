@@ -1,28 +1,25 @@
 package it.m_chele.hotels;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 import java.util.Locale;
 
-import it.m_chele.hotels.model.Hotels;
 import it.m_chele.hotels.model.HotelsItem;
 
 public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewHolder> {
-    private HotelListItemClickListener hotelListItemClickListener;
-    private List<HotelsItem> hotelsList;
+    private HotelsPresenter hotelsPresenter;
 
-    public HotelsAdapter(Hotels hotels, HotelListItemClickListener hotelListItemClickListener) {
-        this.hotelsList = hotels.getHotels();
-        this.hotelListItemClickListener = hotelListItemClickListener;
+    public HotelsAdapter(HotelsPresenter hotelsPresenter) {
+        this.hotelsPresenter = hotelsPresenter;
     }
 
     @NonNull
@@ -35,7 +32,7 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
 
     @Override
     public void onBindViewHolder(@NonNull HotelsAdapter.HotelViewHolder hotelViewHolder, final int position) {
-        HotelsItem hotel = hotelsList.get(position);
+        HotelsItem hotel = hotelsPresenter.hotelAt(position);
         Picasso.get()
                 .load(hotel.getImages().get(0))
                 .error(R.drawable.image_problem)
@@ -45,17 +42,12 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelViewH
         hotelViewHolder.address.setText(String.format("%s, %s", hotel.getLocation().getAddress(), hotel.getLocation().getCity()));
         hotelViewHolder.rating.setText(String.format(Locale.ITALY, "Valutazione %.1f", hotel.getUserRating()));
 
-        hotelViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hotelListItemClickListener.onHotelItemClick(position);
-            }
-        });
+        hotelViewHolder.itemView.setOnClickListener(view -> hotelsPresenter.onClickOnHotelAt(position));
     }
 
     @Override
     public int getItemCount() {
-        return hotelsList.size();
+        return hotelsPresenter.hotelsCount();
     }
 
     public class HotelViewHolder extends RecyclerView.ViewHolder {

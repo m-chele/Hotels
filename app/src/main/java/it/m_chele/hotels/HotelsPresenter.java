@@ -1,11 +1,15 @@
 package it.m_chele.hotels;
 
+import java.util.List;
+
 import io.reactivex.disposables.Disposable;
+import it.m_chele.hotels.model.HotelsItem;
 
 class HotelsPresenter {
     private HotelsView hotelsView;
     private HotelsModel hotelsModel;
     private Disposable disposable;
+    private List<HotelsItem> hotels;
 
     public HotelsPresenter(HotelsView view) {
         hotelsView = view;
@@ -17,9 +21,10 @@ class HotelsPresenter {
             hotelsView.showLoading();
         }
         disposable = hotelsModel.get()
-                .subscribe(hotels -> {
+                .subscribe(result -> {
                             if (null != hotelsView) {
-                                hotelsView.updateWith(hotels);
+                                this.hotels = result.getHotels();
+                                hotelsView.refreshData();
                             }
                         },
                         error -> {
@@ -34,5 +39,17 @@ class HotelsPresenter {
             disposable.dispose();
         }
         hotelsView = null;
+    }
+
+    public HotelsItem hotelAt(int position) {
+        return hotels.get(position);
+    }
+
+    public int hotelsCount() {
+        return hotels.size();
+    }
+
+    public void onClickOnHotelAt(int position) {
+        hotelsView.onHotelItemClick(position);
     }
 }

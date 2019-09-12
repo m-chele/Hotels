@@ -12,16 +12,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.List;
-
-import it.m_chele.hotels.model.Hotels;
-import it.m_chele.hotels.model.HotelsItem;
-
-public class MainActivity extends AppCompatActivity implements HotelsView, HotelListItemClickListener {
+public class MainActivity extends AppCompatActivity implements HotelsView {
 
     private HotelsPresenter hotelPresenter;
     private RecyclerView hotelsListView;
-    private List<HotelsItem> hotelsList;
     private HotelsAdapter hotelsAdapter;
     private SwipeRefreshLayout refreshLayout;
 
@@ -68,10 +62,9 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
     }
 
     @Override
-    public void updateWith(final Hotels hotels) {
+    public void refreshData() {
 
-        this.hotelsList = hotels.getHotels();
-        hotelsAdapter = new HotelsAdapter(hotels, this);
+        hotelsAdapter = new HotelsAdapter(hotelPresenter);
         hotelsListView.setAdapter(hotelsAdapter);
 
         hotelsAdapter.notifyDataSetChanged();
@@ -92,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements HotelsView, Hotel
             return;
         }
         Intent detailIntent = new Intent(this, HotelDetailsActivity.class);
-        detailIntent.putExtra(HotelConstants.KEY_HOTEL, hotelsList.get(position));
+        detailIntent.putExtra(HotelConstants.KEY_HOTEL, hotelPresenter.hotelAt(position));
         startActivity(detailIntent);
     }
 }
