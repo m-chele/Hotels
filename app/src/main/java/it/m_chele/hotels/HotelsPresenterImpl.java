@@ -68,6 +68,8 @@ class HotelsPresenterImpl implements HotelsPresenter {
 
     @Override
     public void onClickOnToggleStarsSorting() {
+        if(hotels == null) return;
+
         ascending = !ascending;
         int inversionCoefficient = ascending ? 1 : -1;
         Collections.sort(hotels, (o1, o2) -> inversionCoefficient * (o1.getStars() - o2.getStars()));
