@@ -29,6 +29,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_menu_sort_by_size_desc" />
+        app:srcCompat="@drawable/ic_menu_sort_by_stars_desc" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

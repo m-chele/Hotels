@@ -2,7 +2,6 @@
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
     private RecyclerView hotelsListView;
     private HotelsAdapter hotelsAdapter;
     private SwipeRefreshLayout refreshLayout;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +38,13 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
         hotelPresenter = new HotelsPresenter(this);
         hotelPresenter.loadData();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            private boolean ascending;
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(v -> hotelPresenter.onClickOnToggleStarsSorting());
+    }
 
-            @Override
-            public void onClick(View v) {
-                ascending = ! ascending;
-                hotelPresenter.sortByStars(ascending);
-                fab.setImageResource(ascending ? R.drawable.ic_menu_sort_by_stars_asc : R.drawable.ic_menu_sort_by_size_desc);
-            }
-        });
+    @Override
+    public void starsSortingCompleted(boolean ascending) {
+        fab.setImageResource(ascending ? R.drawable.ic_menu_sort_by_stars_desc : R.drawable.ic_menu_sort_by_stars_asc);
     }
 
     @Override

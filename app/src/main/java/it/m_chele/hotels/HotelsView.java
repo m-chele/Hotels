@@ -8,4 +8,6 @@ interface HotelsView {
     void refreshData();
 
     void onHotelItemClick(int position);
+
+    void starsSortingCompleted(boolean ascending);
 }
