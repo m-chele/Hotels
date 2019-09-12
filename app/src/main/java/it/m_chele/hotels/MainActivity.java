@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
         hotelsListView.setLayoutManager(layoutManager);
         hotelsListView.setHasFixedSize(true);
 
-        hotelPresenter = new HotelsPresenter(this);
+        hotelPresenter = new HotelsPresenterImpl(this, new HotelsModelImpl());
         hotelPresenter.loadData();
 
         fab = findViewById(R.id.fab);

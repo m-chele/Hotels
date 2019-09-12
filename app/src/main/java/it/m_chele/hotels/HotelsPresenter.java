@@ -1,71 +1,17 @@
 package it.m_chele.hotels;
 
-import java.util.Collections;
-import java.util.List;
-
-import io.reactivex.disposables.Disposable;
-import it.m_chele.hotels.model.Hotels;
 import it.m_chele.hotels.model.HotelsItem;
 
-class HotelsPresenter {
-    private HotelsView hotelsView;
-    private HotelsModel hotelsModel;
-    private Disposable disposable;
-    private List<HotelsItem> hotels;
+interface HotelsPresenter {
+    void loadData();
 
-    public HotelsPresenter(HotelsView view) {
-        hotelsView = view;
-        hotelsModel = new HotelsModel();
-    }
+    void onDestroy();
 
-    public void loadData() {
-        if (null != hotelsView) {
-            hotelsView.showLoading();
-        }
-        disposable = hotelsModel.get()
-                .subscribe(result -> loadCompletedWith(result),
-                        error -> loadCompletedWith(error));
-    }
+    HotelsItem hotelAt(int position);
 
-    private void loadCompletedWith(Throwable error) {
-        if (null != hotelsView) {
-            hotelsView.showError(error.getMessage());
-        }
-    }
+    int hotelsCount();
 
-    private void loadCompletedWith(Hotels result) {
-        if (null != hotelsView) {
-            this.hotels = result.getHotels();
-            hotelsView.refreshData();
-        }
-    }
+    void onClickOnHotelAt(int position);
 
-    public void onDestroy() {
-        if (null != disposable && !disposable.isDisposed()) {
-            disposable.dispose();
-        }
-        hotelsView = null;
-    }
-
-    public HotelsItem hotelAt(int position) {
-        return hotels.get(position);
-    }
-
-    public int hotelsCount() {
-        return hotels.size();
-    }
-
-    public void onClickOnHotelAt(int position) {
-        hotelsView.onHotelItemClick(position);
-    }
-
-    private boolean ascending;
-
-    public void onClickOnToggleStarsSorting() {
-        ascending = !ascending;
-        int inversionCoefficient = ascending ? 1 : -1;
-        Collections.sort(hotels, (o1, o2) -> inversionCoefficient * (o1.getStars() - o2.getStars()));
-        hotelsView.starsSortingCompleted(ascending);
-        hotelsView.refreshData();
-    }
+    void onClickOnToggleStarsSorting();
 }
