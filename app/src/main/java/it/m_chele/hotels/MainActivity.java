@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity implements HotelsView {
         hotelPresenter = new HotelsPresenter(this);
         hotelPresenter.loadData();
 
-        // TODO: pensare a UI/UX: usare per filtro e aggiungere pull to refresh
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> hotelPresenter.loadData());
+        fab.setOnClickListener(view -> hotelPresenter.sortByStars());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package it.m_chele.hotels;
 
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.disposables.Disposable;
@@ -56,5 +57,10 @@ class HotelsPresenter {
 
     public void onClickOnHotelAt(int position) {
         hotelsView.onHotelItemClick(position);
+    }
+
+    public void sortByStars() {
+        Collections.sort(hotels, (o1, o2) -> o1.getStars() - o2.getStars());
+        hotelsView.refreshData();
     }
 }
