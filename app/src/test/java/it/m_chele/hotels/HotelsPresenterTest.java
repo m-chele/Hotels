@@ -1,6 +1,5 @@
 package it.m_chele.hotels;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import io.reactivex.Single;
@@ -13,9 +12,11 @@ public class HotelsPresenterTest {
     private HotelsPresenter presenter;
     private HotelsViewTest viewStub;
 
-    @Before
-    public void setUp() {
-    }
+    // TODO:
+    // on_destroy_fa_dispose
+    // hotel_at
+    // hotels_count
+    // sorting_by_stars_verifica_algoritmo
 
     @Test
     public void informs_view_of_loading_status() {

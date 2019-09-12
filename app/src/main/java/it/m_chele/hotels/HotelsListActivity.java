@@ -1,17 +1,17 @@
-    package it.m_chele.hotels;
+package it.m_chele.hotels;
 
-    import android.content.Intent;
-    import android.os.Bundle;
+import android.content.Intent;
+import android.os.Bundle;
 
-    import androidx.annotation.VisibleForTesting;
-    import androidx.appcompat.app.AppCompatActivity;
-    import androidx.appcompat.widget.Toolbar;
-    import androidx.recyclerview.widget.GridLayoutManager;
-    import androidx.recyclerview.widget.RecyclerView;
-    import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-    import com.google.android.material.floatingactionbutton.FloatingActionButton;
-    import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class HotelsListActivity extends AppCompatActivity implements HotelsView {
 
@@ -27,6 +27,7 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
 
         configureUI();
 
+        // TODO: inject as dependency
         hotelsPresenter = new HotelsPresenterImpl(this, new HotelsModelImpl());
         hotelsPresenter.loadData();
     }
@@ -73,13 +74,12 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
 
     @Override
     public void refreshData() {
-        HotelsAdapter hotelsAdapter = new HotelsAdapter(hotelsPresenter);
-        hotelsListView.setAdapter(hotelsAdapter);
-
-        hotelsAdapter.notifyDataSetChanged();
-
         refreshLayout.setRefreshing(false);
         showSnackbarWithMessage("Caricamento completo!");
+
+        HotelsAdapter hotelsAdapter = new HotelsAdapter(hotelsPresenter);
+        hotelsListView.setAdapter(hotelsAdapter);
+        hotelsAdapter.notifyDataSetChanged();
     }
 
     private void showSnackbarWithMessage(String message) {

@@ -12,8 +12,9 @@ class HotelsModelImpl implements HotelsModel {
 
     public Single<Hotels> get() {
 
-        ApiInterface apiInterface = getClient().create(ApiInterface.class);
-        return apiInterface.getHotels()
+        return getClient()
+                .create(ApiInterface.class)
+                .getHotels()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

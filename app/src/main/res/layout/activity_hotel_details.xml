@@ -45,6 +45,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- TODO: improve UI -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

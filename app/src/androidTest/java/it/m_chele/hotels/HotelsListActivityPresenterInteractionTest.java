@@ -28,12 +28,18 @@ public class HotelsListActivityPresenterInteractionTest {
     @Before
     public void setUp() {
         Intent startIntent = new Intent();
-        rule.launchActivity(startIntent);
+        rule.launchActivity(startIntent); // TODO: warning: real network call
 
         HotelsListActivity activity = rule.getActivity();
         presenterStub = new HotelsPresenterStub();
         activity.setPresenter(presenterStub);
     }
+
+    // TODO:
+    // test_load_called_at_launch  (serve injection)
+    // test_on_destroy_chiama_il_presenter
+    // ...
+    // click_su_elemento_recycler_view_apre_activity_dettaglio
 
     @Test
     public void clicks_on_fab_performs_sorting_by_stars() {

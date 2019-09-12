@@ -1,6 +1,5 @@
 package it.m_chele.hotels;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -13,8 +12,6 @@ import it.m_chele.hotels.model.HotelsItem;
 
 public class HotelDetailsActivity extends AppCompatActivity {
 
-    private HotelsItem hotel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +20,8 @@ public class HotelDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Intent intent = getIntent();
-        hotel = intent.getParcelableExtra(HotelConstants.KEY_HOTEL);
+        HotelsItem hotel = getIntent()
+                .getParcelableExtra(HotelConstants.KEY_HOTEL);
 
         ViewPager hotelImagesViewPager = findViewById(R.id.images_view_pager);
         hotelImagesViewPager.setAdapter(new ImagesAdapter(this, hotel.getImages()));
@@ -40,6 +37,7 @@ public class HotelDetailsActivity extends AppCompatActivity {
         TextView checkin = findViewById(R.id.hotel_checkin);
         TextView checkout = findViewById(R.id.hotel_checkout);
 
+        // TODO: formatting responsibility should be isolated
         name.setText(
                 String.format("%s",
                         hotel.getName()));
