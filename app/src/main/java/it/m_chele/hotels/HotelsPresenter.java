@@ -3,6 +3,7 @@ package it.m_chele.hotels;
 import java.util.List;
 
 import io.reactivex.disposables.Disposable;
+import it.m_chele.hotels.model.Hotels;
 import it.m_chele.hotels.model.HotelsItem;
 
 class HotelsPresenter {
@@ -21,17 +22,21 @@ class HotelsPresenter {
             hotelsView.showLoading();
         }
         disposable = hotelsModel.get()
-                .subscribe(result -> {
-                            if (null != hotelsView) {
-                                this.hotels = result.getHotels();
-                                hotelsView.refreshData();
-                            }
-                        },
-                        error -> {
-                            if (null != hotelsView) {
-                                hotelsView.showError(error.getMessage());
-                            }
-                        });
+                .subscribe(result -> loadCompletedWith(result),
+                        error -> loadCompletedWith(error));
+    }
+
+    private void loadCompletedWith(Throwable error) {
+        if (null != hotelsView) {
+            hotelsView.showError(error.getMessage());
+        }
+    }
+
+    private void loadCompletedWith(Hotels result) {
+        if (null != hotelsView) {
+            this.hotels = result.getHotels();
+            hotelsView.refreshData();
+        }
     }
 
     public void onDestroy() {
