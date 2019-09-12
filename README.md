@@ -1,5 +1,6 @@
+# Hotels
 
-# Approccio al problema
+## Approccio al problema
 Non avendo moltissimo tempo a disposizione per lo svolgimento ho dato priorità all'implementazione
 delle funzionalità richieste trascurando inizialmente la parte di testing. So che non è una buona abitudine ma
 implementando il pattern MVP pensavo di riuscire a sopperire in seguito: non ci sono riuscito in modo sufficiente.
@@ -7,10 +8,10 @@ Mi sono anche preso il rischio di migrare ad androidx con il progetto in corso, 
 difficoltà con i test di espresso su intent e recyclerview che poi ho abbandonato, sempre per questioni di tempo.
 Un altro azzardo è stato l'utilizzo di RxJava, di cui non mi sento molto esperto ma per una semplice chiamata non
 mi ha causato particolari problemi, nemmeno nei test.
-Il sorting sul numero di stelle è un po'banale. Essendo un "nice to have" mi sono permesso di scgliere la cosa più facile,
+Il sorting sul numero di stelle è un po'banale. Essendo un "nice to have" mi sono permesso di scegliere la cosa più facile,
 anche in questo caso riservandomi di migliorare/arricchire qualora fosse rimasto tempo.
 
-# Cosa non va
+## Cosa non va
 * la UI credo sia abbastanza completa ma è da abbellire
   * quella del dettglio in particolare
 * serve presenter per dettaglio per action varie:
