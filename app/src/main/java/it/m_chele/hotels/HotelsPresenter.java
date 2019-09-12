@@ -1,10 +1,11 @@
 package it.m_chele.hotels;
 
-import it.m_chele.hotels.model.Hotels;
+import io.reactivex.disposables.Disposable;
 
-class HotelsPresenter implements HotelsModel.OnFinishedListener {
+class HotelsPresenter {
     private HotelsView hotelsView;
     private HotelsModel hotelsModel;
+    private Disposable disposable;
 
     public HotelsPresenter(HotelsView view) {
         hotelsView = view;
@@ -15,24 +16,23 @@ class HotelsPresenter implements HotelsModel.OnFinishedListener {
         if (null != hotelsView) {
             hotelsView.showLoading();
         }
-        hotelsModel.get(this);
+        disposable = hotelsModel.get()
+                .subscribe(hotels -> {
+                            if (null != hotelsView) {
+                                hotelsView.updateWith(hotels);
+                            }
+                        },
+                        error -> {
+                            if (null != hotelsView) {
+                                hotelsView.showError(error.getMessage());
+                            }
+                        });
     }
 
     public void onDestroy() {
+        if (null != disposable && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
         hotelsView = null;
-    }
-
-    @Override
-    public void onSuccess(Hotels hotelsList) {
-        if (null != hotelsView) {
-            hotelsView.updateWith(hotelsList);
-        }
-    }
-
-    @Override
-    public void onError(Throwable t) {
-        if (null != hotelsView) {
-            hotelsView.showError(t.getMessage());
-        }
     }
 }
