@@ -25,12 +25,12 @@ class HotelsPresenterImpl implements HotelsPresenter {
         }
         disposable = hotelsModel.get()
                 .subscribe(result -> loadCompletedWith(result),
-                        error -> loadCompletedWith(error));
+                        error -> loadCompletedWith());
     }
 
-    private void loadCompletedWith(Throwable error) {
+    private void loadCompletedWith() {
         if (null != hotelsView) {
-            hotelsView.showError(error.getMessage());
+            hotelsView.showError();
         }
     }
 

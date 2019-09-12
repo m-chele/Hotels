@@ -16,7 +16,6 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
 
     private HotelsPresenter hotelPresenter;
     private RecyclerView hotelsListView;
-    private HotelsAdapter hotelsAdapter;
     private SwipeRefreshLayout refreshLayout;
     private FloatingActionButton fab;
 
@@ -24,6 +23,14 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        configureUI();
+
+        hotelPresenter = new HotelsPresenterImpl(this, new HotelsModelImpl());
+        hotelPresenter.loadData();
+    }
+
+    private void configureUI() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,22 +42,19 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
         hotelsListView.setLayoutManager(layoutManager);
         hotelsListView.setHasFixedSize(true);
 
-        hotelPresenter = new HotelsPresenterImpl(this, new HotelsModelImpl());
-        hotelPresenter.loadData();
-
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(v -> hotelPresenter.onClickOnToggleStarsSorting());
-    }
-
-    @Override
-    public void starsSortingCompleted(boolean ascending) {
-        fab.setImageResource(ascending ? R.drawable.ic_menu_sort_by_stars_desc : R.drawable.ic_menu_sort_by_stars_asc);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         hotelPresenter.onDestroy();
+    }
+
+    @Override
+    public void starsSortingCompleted(boolean ascending) {
+        fab.setImageResource(ascending ? R.drawable.ic_menu_sort_by_stars_desc : R.drawable.ic_menu_sort_by_stars_asc);
     }
 
     @Override
@@ -61,15 +65,14 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
     }
 
     @Override
-    public void showError(String message) {
+    public void showError() {
         refreshLayout.setRefreshing(false);
         showSnackbarWithMessage("Errore di caricamento, riprova tra poco!");
     }
 
     @Override
     public void refreshData() {
-
-        hotelsAdapter = new HotelsAdapter(hotelPresenter);
+        HotelsAdapter hotelsAdapter = new HotelsAdapter(hotelPresenter);
         hotelsListView.setAdapter(hotelsAdapter);
 
         hotelsAdapter.notifyDataSetChanged();

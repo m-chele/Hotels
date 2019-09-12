@@ -6,13 +6,10 @@ import org.junit.Test;
 import io.reactivex.Single;
 import it.m_chele.hotels.model.Hotels;
 
-import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class HotelsPresenterTest {
 
-
-    public static final String EXCEPTION_TEST_MESSAGE = "Exception test message";
     private HotelsPresenter presenter;
     private HotelsViewTest viewStub;
 
@@ -45,7 +42,7 @@ public class HotelsPresenterTest {
 
         presenter.loadData();
 
-        assertEquals(EXCEPTION_TEST_MESSAGE, viewStub.showErrorCalledWithMessage);
+        assertTrue(viewStub.showErrorCalled);
     }
 
     private void withLoadingSuccess() {
@@ -57,7 +54,7 @@ public class HotelsPresenterTest {
 
     private void withLoadingError() {
         viewStub = new HotelsViewTest();
-        HotelsModel modelStub = () -> Single.create(emitter -> emitter.onError(new Exception(EXCEPTION_TEST_MESSAGE)));
+        HotelsModel modelStub = () -> Single.create(emitter -> emitter.onError(new Exception()));
 
         presenter = new HotelsPresenterImpl(viewStub, modelStub);
     }
@@ -65,7 +62,7 @@ public class HotelsPresenterTest {
 
     private class HotelsViewTest implements HotelsView {
 
-        public String showErrorCalledWithMessage;
+        public boolean showErrorCalled;
         public boolean refreshDataCalled;
         public boolean showLoadingCalled;
 
@@ -76,8 +73,8 @@ public class HotelsPresenterTest {
         }
 
         @Override
-        public void showError(String message) {
-            showErrorCalledWithMessage = message;
+        public void showError() {
+            showErrorCalled = true;
         }
 
         @Override
