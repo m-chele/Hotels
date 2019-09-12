@@ -12,7 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity implements HotelsView {
+public class HotelsListActivity extends AppCompatActivity implements HotelsView {
 
     private HotelsPresenter hotelPresenter;
     private RecyclerView hotelsListView;
