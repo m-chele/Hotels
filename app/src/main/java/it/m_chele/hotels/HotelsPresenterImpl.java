@@ -1,5 +1,6 @@
 package it.m_chele.hotels;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,7 +12,7 @@ class HotelsPresenterImpl implements HotelsPresenter {
     private HotelsView hotelsView;
     private HotelsModel hotelsModel;
     private Disposable disposable;
-    private List<HotelsItem> hotels;
+    private List<HotelsItem> hotels = new ArrayList<>(0);
 
     public HotelsPresenterImpl(HotelsView view, HotelsModel model) {
         hotelsView = view;

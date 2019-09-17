@@ -19,16 +19,19 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
     private RecyclerView hotelsListView;
     private SwipeRefreshLayout refreshLayout;
     private FloatingActionButton fab;
+    private HotelsAdapter hotelsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        configureUI();
-
         // TODO: inject as dependency
         hotelsPresenter = new HotelsPresenterImpl(this, new HotelsModelImpl());
+        hotelsAdapter = new HotelsAdapter(hotelsPresenter);
+
+        configureUI();
+
         hotelsPresenter.loadData();
     }
 
@@ -43,6 +46,8 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         hotelsListView.setLayoutManager(layoutManager);
         hotelsListView.setHasFixedSize(true);
+        hotelsListView.setAdapter(hotelsAdapter);
+
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(v -> hotelsPresenter.onClickOnToggleStarsSorting());
@@ -77,8 +82,6 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
         refreshLayout.setRefreshing(false);
         showSnackbarWithMessage("Caricamento completo!");
 
-        HotelsAdapter hotelsAdapter = new HotelsAdapter(hotelsPresenter);
-        hotelsListView.setAdapter(hotelsAdapter);
         hotelsAdapter.notifyDataSetChanged();
     }
 
