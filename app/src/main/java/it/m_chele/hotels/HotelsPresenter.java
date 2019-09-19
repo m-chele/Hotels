@@ -2,7 +2,7 @@ package it.m_chele.hotels;
 
 import it.m_chele.hotels.model.HotelsItem;
 
-interface HotelsPresenter {
+public interface HotelsPresenter {
     void loadData();
 
     void onDestroy();
@@ -14,4 +14,6 @@ interface HotelsPresenter {
     void onClickOnHotelAt(int position);
 
     void onClickOnToggleStarsSorting();
+
+    void bindView(HotelsView view);
 }

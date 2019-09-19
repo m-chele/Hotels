@@ -13,9 +13,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+
 public class HotelsListActivity extends AppCompatActivity implements HotelsView {
 
-    private HotelsPresenter hotelsPresenter;
+    @Inject
+    HotelsPresenterImpl hotelsPresenter;
+
     private RecyclerView hotelsListView;
     private SwipeRefreshLayout refreshLayout;
     private FloatingActionButton fab;
@@ -23,11 +29,12 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO: inject as dependency
-        hotelsPresenter = new HotelsPresenterImpl(this, new HotelsModelImpl());
+        hotelsPresenter.bindView(this);
         hotelsAdapter = new HotelsAdapter(hotelsPresenter);
 
         configureUI();
@@ -102,7 +109,7 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-    public void setPresenter(HotelsPresenter hotelsPresenter) {
+    public void setPresenter(HotelsPresenterImpl hotelsPresenter) {
         this.hotelsPresenter = hotelsPresenter;
     }
 }

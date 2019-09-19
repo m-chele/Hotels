@@ -4,15 +4,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.disposables.Disposable;
 import it.m_chele.hotels.model.Hotels;
 import it.m_chele.hotels.model.HotelsItem;
 
-class HotelsPresenterImpl implements HotelsPresenter {
+@Singleton
+public class HotelsPresenterImpl implements HotelsPresenter {
     private HotelsView hotelsView;
     private HotelsModel hotelsModel;
     private Disposable disposable;
     private List<HotelsItem> hotels = new ArrayList<>(0);
+
+    @Inject
+    public HotelsPresenterImpl(HotelsModel model) {
+        hotelsModel = model;
+    }
 
     public HotelsPresenterImpl(HotelsView view, HotelsModel model) {
         hotelsView = view;
@@ -76,5 +85,10 @@ class HotelsPresenterImpl implements HotelsPresenter {
         Collections.sort(hotels, (o1, o2) -> inversionCoefficient * (o1.getStars() - o2.getStars()));
         hotelsView.starsSortingCompleted(ascending);
         hotelsView.refreshData();
+    }
+
+    @Override
+    public void bindView(HotelsView view) {
+        hotelsView = view;
     }
 }
