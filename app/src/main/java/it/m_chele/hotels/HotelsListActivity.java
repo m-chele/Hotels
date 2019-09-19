@@ -20,7 +20,7 @@ import dagger.android.AndroidInjection;
 public class HotelsListActivity extends AppCompatActivity implements HotelsView {
 
     @Inject
-    HotelsPresenterImpl hotelsPresenter;
+    HotelsPresenter hotelsPresenter;
 
     private RecyclerView hotelsListView;
     private SwipeRefreshLayout refreshLayout;
@@ -109,7 +109,7 @@ public class HotelsListActivity extends AppCompatActivity implements HotelsView 
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-    public void setPresenter(HotelsPresenterImpl hotelsPresenter) {
+    public void setPresenter(HotelsPresenter hotelsPresenter) {
         this.hotelsPresenter = hotelsPresenter;
     }
 }
