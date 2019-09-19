@@ -17,7 +17,7 @@ class ImagesAdapter extends PagerAdapter {
     private Context context;
     private List<String> imagesUrl;
 
-    public ImagesAdapter(Context context, List imagesUrl) {
+    public ImagesAdapter(Context context, List<String> imagesUrl) {
         this.context = context;
         this.imagesUrl = imagesUrl;
     }
